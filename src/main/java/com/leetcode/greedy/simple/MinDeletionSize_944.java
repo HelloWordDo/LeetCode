@@ -15,8 +15,6 @@ public class MinDeletionSize_944 {
 
             for (int j = 0; j < len1 - 1; j++) {
 
-                String s = A[j];
-
                 char c1 = A[j].charAt(i);
                 char c2 = A[j + 1].charAt(i);
 
