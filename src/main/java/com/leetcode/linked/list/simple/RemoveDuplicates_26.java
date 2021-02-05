@@ -1,7 +1,7 @@
 package com.leetcode.linked.list.simple;
 
 /**
- *
+ * 26.删除排序数组中的重复项
  */
 public class RemoveDuplicates_26 {
 
