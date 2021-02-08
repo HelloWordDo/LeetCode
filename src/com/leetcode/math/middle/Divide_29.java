@@ -68,6 +68,6 @@ public class Divide_29 {
 
 
     public static void main(String[] args) {
-        System.out.println("结果：" + divide(2147483647, 2));
+        System.out.println("结果：" + divide(11, 2));
     }
 }
