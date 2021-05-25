@@ -1,7 +1,6 @@
 package com.leetcode.array.medium;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * 16. 最接近的三数之和
