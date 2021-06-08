@@ -20,7 +20,7 @@ import java.util.List;
  * 输入：nums = [], target = 0
  * 输出：[]
  */
-public class FourSum_17 {
+public class FourSum_18 {
 
     List<List<Integer>> res = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class FourSum_17 {
 
 
     public static void main(String[] args) {
-        FourSum_17 method = new FourSum_17();
+        FourSum_18 method = new FourSum_18();
 
         List<List<Integer>> res = method.fourSum(new int[]{-2, -1, -1, 1, 1, 2, 2}, 0);
         System.out.println(res);
