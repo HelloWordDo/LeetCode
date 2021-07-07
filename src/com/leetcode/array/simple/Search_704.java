@@ -1,4 +1,4 @@
-package com.leetcode.backtracking.simple;
+package com.leetcode.array.simple;
 
 /**
  * 704. 二分查找
