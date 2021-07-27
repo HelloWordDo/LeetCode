@@ -29,15 +29,15 @@ public class QuickSort {
         sort(nums, lo, p - 1);
         sort(nums, p + 1, hi);
     }
+
+    /**
+     * 快排算法
+     */
     public static int partition(int[] nums, int lo, int hi) {
         if (lo == hi) return lo;
         // 将 nums[lo] 作为默认分界点 pivot
         int pivot = nums[lo];
         // j = hi + 1 因为 while 中会先执行 --
-
-    /**
-     * 快排算法
-     */
         int i = lo, j = hi + 1;
         while (true) {
             // 保证 nums[lo..i] 都小于 pivot
