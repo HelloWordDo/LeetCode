@@ -12,41 +12,53 @@ package com.sort;
  */
 public class QuickSort {
 
-    /**
-     * 快排方法
-     */
-    public static int[] quickSort(int[] array, int start, int end) {
-
-        if (array.length < 1 || start < 0 || end >= array.length || start > end) {
-            return null;
-        }
-        int smallIndex = partition(array, start, end);
-        if (smallIndex > start) {
-            quickSort(array, start, smallIndex - 1);
-        }
-        if (smallIndex < end) {
-            quickSort(array, smallIndex + 1, end);
-        }
-        return array;
+    /* 快速排序主函数 */
+    void sort(int[] nums) {
+        // 一般要在这用洗牌算法将 nums 数组打乱，
+        // 以保证较高的效率，我们暂时省略这个细节
+        sort(nums, 0, nums.length - 1);
     }
+
+    /* 快速排序核心逻辑 */
+    void sort(int[] nums, int lo, int hi) {
+        if (lo >= hi) return;
+        // 通过交换元素构建分界点索引 p
+        int p = partition(nums, lo, hi);
+        // 现在 nums[lo..p-1] 都小于 nums[p]，
+        // 且 nums[p+1..hi] 都大于 nums[p]
+        sort(nums, lo, p - 1);
+        sort(nums, p + 1, hi);
+    }
+    public static int partition(int[] nums, int lo, int hi) {
+        if (lo == hi) return lo;
+        // 将 nums[lo] 作为默认分界点 pivot
+        int pivot = nums[lo];
+        // j = hi + 1 因为 while 中会先执行 --
 
     /**
      * 快排算法
      */
-    public static int partition(int[] array, int start, int end) {
-
-        int pivot = (int) (start + Math.random() * (end - start + 1));
-        int smallIndex = start - 1;
-        swap(array, pivot, end);
-        for (int i = start; i <= end; i++) {
-            if (array[i] <= array[end]) {
-                smallIndex++;
-                if (i > smallIndex) {
-                    swap(array, i, smallIndex);
-                }
+        int i = lo, j = hi + 1;
+        while (true) {
+            // 保证 nums[lo..i] 都小于 pivot
+            while (nums[++i] < pivot) {
+                if (i == hi) break;
             }
+            // 保证 nums[j..hi] 都大于 pivot
+            while (nums[--j] > pivot) {
+                if (j == lo) break;
+            }
+            if (i >= j) break;
+            // 如果走到这里，一定有：
+            // nums[i] > pivot && nums[j] < pivot
+            // 所以需要交换 nums[i] 和 nums[j]，
+            // 保证 nums[lo..i] < pivot < nums[j..hi]
+            swap(nums, i, j);
         }
-        return smallIndex;
+        // 将 pivot 值交换到正确的位置
+        swap(nums, j, lo);
+        // 现在 nums[lo..j-1] < nums[j] < nums[j+1..hi]
+        return j;
     }
 
     public static void swap(int[] array, int i, int j) {
@@ -58,8 +70,10 @@ public class QuickSort {
 
     public static void main(String[] args) {
 
-        int[] array = new int[]{2, 6, 4, 22, 7, 15, 13, 10, 21, 33};
-        int[] b = quickSort(array, 0, array.length - 1);
-        System.out.println("Result:" + b);
+        QuickSort sort = new QuickSort();
+        int[] array = new int[]{4, 1, 6, 3, 2, 5};
+        sort.sort(array);
+
+        System.out.println(array);
     }
 }
