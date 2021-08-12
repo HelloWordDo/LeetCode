@@ -1,8 +1,6 @@
 package com.leetcode.graph.medium;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 210. 课程表 II
@@ -50,10 +48,10 @@ public class FindOrder_210 {
             graph[i] = new ArrayList<>();
         }
 
-        for (int[] cource : prerequisites) {
+        for (int[] course : prerequisites) {
 
-            int from = cource[1];
-            int to = cource[0];
+            int from = course[1];
+            int to = course[0];
             graph[from].add(to);
         }
 
@@ -93,10 +91,65 @@ public class FindOrder_210 {
     }
 
 
+    /**
+     * 广度优先
+     *
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public int[] findOrder2(int numCourses, int[][] prerequisites) {
+
+        List<Integer>[] graph = new ArrayList[numCourses];
+
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        int[] inDegree = new int[numCourses];
+        for (int[] course : prerequisites) {
+
+            int from = course[1];
+            int to = course[0];
+            graph[from].add(to);
+            inDegree[to] += 1;
+        }
+
+        Queue<Integer> queue = new LinkedList();
+
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+
+        int num = 0;
+        int[] res = new int[numCourses];
+        while (!queue.isEmpty()) {
+
+            int i = queue.poll();
+
+            res[num++] = i;
+
+            for (Integer index : graph[i]) {
+                inDegree[index] -= 1;
+
+                if (inDegree[index] == 0) {
+                    queue.add(index);
+                }
+            }
+        }
+        if (num == numCourses) {
+            return res;
+        }
+
+        return new int[0];
+    }
+
     public static void main(String[] args) {
 
         FindOrder_210 method = new FindOrder_210();
-        int[] i = method.findOrder(4, new int[][]{{1, 0}, {2, 0}, {3, 1}, {3, 2}});
+        int[] i = method.findOrder2(4, new int[][]{{1, 0}, {2, 0}, {3, 1}, {3, 2}});
         System.out.println(i);
     }
 }
