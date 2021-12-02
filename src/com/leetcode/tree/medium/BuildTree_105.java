@@ -3,11 +3,14 @@ package com.leetcode.tree.medium;
 import com.leetcode.tree.Serialize;
 import com.leetcode.tree.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 105. 从前序与中序遍历序列构造二叉树
  * 给定一棵树的前序遍历 preorder 与中序遍历  inorder。请构造二叉树并返回其根节点。
  * <p>
- *  
+ *
  * <p>
  * 示例 1:
  * <p>
@@ -18,7 +21,7 @@ import com.leetcode.tree.TreeNode;
  * <p>
  * Input: preorder = [-1], inorder = [-1]
  * Output: [-1]
- *  
+ *
  * <p>
  * 提示:
  * <p>
@@ -37,14 +40,19 @@ import com.leetcode.tree.TreeNode;
 public class BuildTree_105 {
 
     int pre = 0;
+    private Map<Integer, Integer> indexMap;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
+
+        indexMap = new HashMap();
+        for (int i = 0; i < inorder.length; i++) {
+            indexMap.put(inorder[i], i);
+        }
 
         TreeNode treeNode = buildTree(preorder, inorder, pre, inorder.length, 0, inorder.length);
 
         return treeNode;
     }
-
 
     public TreeNode buildTree(int[] preorder, int[] inorder, int preL, int in, int inL, int inR) {
 
@@ -55,13 +63,18 @@ public class BuildTree_105 {
 
         TreeNode node = new TreeNode(preorder[pre]);
 
-        for (int i = inL; i < in; i++) {
-            if (inorder[i] == preorder[pre]) {
-                inR = in;
-                in = i;
-                break;
-            }
-        }
+        int order = indexMap.get(preorder[pre]);
+
+        inR = in;
+        in = order;
+
+//        for (int i = inL; i < in; i++) {
+//            if (inorder[i] == preorder[pre]) {
+//                inR = in;
+//                in = i;
+//                break;
+//            }
+//        }
 
         System.out.println(in + " " + inL + " " + inR + " " + pre);
 
