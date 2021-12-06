@@ -61,6 +61,7 @@ public class PathSum_113 {
 
         backtrack.add(root.val);
 
+        curSum += root.val;
         if (root.left == null && root.right == null) {
 
             if (curSum == targetSum) {
@@ -70,9 +71,9 @@ public class PathSum_113 {
             return;
         }
 
-        pathSum(backtrack, root.left, targetSum, curSum + root.val);
+        pathSum(backtrack, root.left, targetSum, curSum);
 
-        pathSum(backtrack, root.right, targetSum, curSum + root.val);
+        pathSum(backtrack, root.right, targetSum, curSum);
 
         backtrack.removeLast();
     }
