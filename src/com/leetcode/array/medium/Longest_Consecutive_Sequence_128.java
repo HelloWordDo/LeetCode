@@ -30,11 +30,36 @@ import java.util.Set;
  */
 public class Longest_Consecutive_Sequence_128 {
 
+    public int longestConsecutive2(int[] nums) {
+        int max = 0;
+        Set<Integer> set = new HashSet();
+
+        for (int i = 0; i < nums.length; i++) {
+
+            set.add(nums[i]);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+
+            int num = nums[i];
+
+            if (set.contains(num - 1)) {
+                continue;
+            }
+
+            int count = 1;
+            int currentNum = num;
+            while (set.contains(++currentNum)) {
+                count++;
+            }
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+
     public int longestConsecutive(int[] nums) {
 
-        if (nums.length == 0) {
-            return 0;
-        }
+        int max = 0;
         HashMap<Integer, Integer> map = new HashMap<>();
         Set<Integer> visited = new HashSet();
 
@@ -42,8 +67,6 @@ public class Longest_Consecutive_Sequence_128 {
 
             map.put(nums[i], 1);
         }
-
-        int max = Integer.MIN_VALUE;
 
         for (int i = 0; i < nums.length; i++) {
 
@@ -83,7 +106,11 @@ public class Longest_Consecutive_Sequence_128 {
 
         Longest_Consecutive_Sequence_128 method = new Longest_Consecutive_Sequence_128();
 
-//        System.out.println(method.longestConsecutive(new int[]{100, 4, 200, 1, 3, 2}));
+        System.out.println(method.longestConsecutive(new int[]{100, 4, 200, 1, 3, 2}));
         System.out.println(method.longestConsecutive(new int[]{0, 3, 7, 2, 5, 8, 4, 6, 0, 1}));
+        System.out.println(method.longestConsecutive(new int[]{}));
+        System.out.println(method.longestConsecutive(new int[]{1}));
+        System.out.println(method.longestConsecutive(new int[]{1, 2}));
+        System.out.println(method.longestConsecutive(new int[]{1, 2, 0}));
     }
 }
